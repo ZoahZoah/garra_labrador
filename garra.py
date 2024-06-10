@@ -15,17 +15,17 @@ class Garra:
             self.labrador.pin36.enable_pwm(                                     # Motor de recuo
                 alias="engine_backward", freq=25, duty_cycle=0.1*time_count)
             
-            self.labrador.pin22.enable_pwm(                                     # Motor de esticar a garra
+            self.labrador.pin28.enable_pwm(                                     # Motor de esticar a garra
                 alias="engine_stretch", freq=25, duty_cycle=0.1*time_count)
             
             self.labrador.pin24.enable_pwm(                                     # Motor de retrair a garra
                 alias="engine_retract", freq=25, duty_cycle=0.1*time_count)
             
-            self.labrador.pin31.enable_pwm(                                     # Motor de subir
+            '''self.labrador.pin31.enable_pwm(                                     # Motor de subir
                 alias="engine_uplift", freq=25, duty_cycle=0.1*time_count)
             
             self.labrador.pin29.enable_pwm(                                     # Motor de descer
-                alias="engine_lower", freq=25, duty_cycle=0.1*time_count)
+                alias="engine_lower", freq=25, duty_cycle=0.1*time_count)'''
             
             self.labrador.pin11.enable_pwm(                                     # Motor de girar para a esquerda
                 alias="engine_turn_left", freq=25, duty_cycle=0.1*time_count)
@@ -71,13 +71,13 @@ class Garra:
             self.labrador.engine_stretch.pwm.start()
             self.labrador.engine_retract.pwm.stop()
             limit = self.labrador.stop_button_claw.read()
-            print(limit)
 
             if limit == True:
                 self.labrador.engine_stretch.pwm.stop()
-
-            self.__is_moving = True
-        print("Abrindo a garra...")
+                print('Limite atingido')
+            else:
+                self.__is_moving = True
+                print("Abrindo a garra...")
 
     def retract_claw(self):
         if not self.__is_moving:
@@ -85,7 +85,7 @@ class Garra:
             self.labrador.engine_retract.pwm.start()
 
             self.__is_moving = True
-        print("Fechando a garra...")
+            print("Fechando a garra...")
 
     def foward_claw(self):
         if not self.__is_moving:
@@ -93,7 +93,7 @@ class Garra:
             self.labrador.engine_backward.pwm.stop()
 
             self.__is_moving = True
-        print("Avançando...")
+            print("Avançando...")
 
     def backward_claw(self):
         if not self.__is_moving:
@@ -105,9 +105,11 @@ class Garra:
 
             if limit == True:
                 self.labrador.engine_backward.pwm.stop()
-
-            self.__is_moving = True
-        print("Recuando...")
+                self.__is_moving = False
+                print('limite atingido')
+            else:
+                self.__is_moving = True
+                print("Recuando...")
     
 
     def uplift(self):
@@ -119,9 +121,11 @@ class Garra:
 
             if limit == True:
                 self.labrador.engine_uplift.pwm.stop()
-
-            self.__is_moving = True
-        print("Subindo...")
+                self.__is_moving = False
+                print('limite atingido')
+            else:
+                self.__is_moving = True
+                print("Subindo...")
 
     def lower(self):
         if not self.__is_moving:
@@ -129,7 +133,7 @@ class Garra:
             self.labrador.engine_lower.pwm.start()
 
             self.__is_moving = True
-        print("Descendo...")
+            print("Descendo...")
 
     def turn_right(self):
         if not self.__is_moving:
@@ -140,9 +144,11 @@ class Garra:
 
             if limit == True:
                 self.labrador.engine_turn_right.pwm.stop()
-
-            self.__is_moving = True
-        print("Girando sentido horário...")
+                self.__is_moving = False
+                print('limite atingido')
+            else:
+                self.__is_moving = True
+                print("Girando sentido horário...")
 
     def turn_left(self):
         if not self.__is_moving:
@@ -150,4 +156,11 @@ class Garra:
             self.labrador.engine_turn_left.pwm.start()
 
             self.__is_moving = True
-        print("Girando sentido anti-horário...")
+            print("Girando sentido anti-horário...")
+
+    def stop_claw(self):
+        self.__is_moving = False
+        for pin in self.labrador.enabled_features:
+            if pin.pwm is not None:
+                pin.pwm.stop()
+        print('Parando a garra...')

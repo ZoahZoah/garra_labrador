@@ -1,0 +1,63 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.controls button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #f3f3f3;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.status {
+    margin-top: 20px;
+}
+
+.keys {
+    display: flex;
+    justify-content: center; /* Centraliza os botões horizontalmente */
+}
+
+.keys button {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 5px; /* Bordas arredondadas */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.keys button.active {
+    background-color: #961212; /* Cor de fundo quando pressionado */
+}
+
+.key-groups {
+    display: flex; /* Ativa o Flexbox */
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.key-group {
+    width: 300px;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 20px;
+    margin: 20px;
+}

@@ -7,6 +7,9 @@ app = socketio.ASGIApp(sio, static_files={
     '/': './static/'
 })
 
+last_key = {}
+
+
 @sio.event
 async def connect(sid, environ):
     print(sid, 'connected')
@@ -21,10 +24,21 @@ async def sum(sid, data):
     await sio.emit('sum_result', {'result': result}, to=sid)        
 
 @sio.event
+async def key_up(sid, data):
+    await sio.emit('key_up', to=sid)
+    garra.stop_claw()
+
+@sio.event
 async def key_pressed(sid, data):
     key = data['key']
-    print(f'Tecla recebida do cliente {sid}: {key}')
-    await sio.emit('key_W_pressed', key, to=sid)
+    another_key = last_key.get(sid)
+    if key != another_key:
+        print(f'Tecla recebida do cliente {sid}: {key}')
+    await sio.emit('key_pressed', key, to=sid)
+    moving_claw(key)
+    last_key[sid] = key
+
+def moving_claw(key):
     if key == 'w':
         garra.foward_claw()
     elif key == 's':
