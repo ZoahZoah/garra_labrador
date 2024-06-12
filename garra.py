@@ -10,16 +10,16 @@ class Garra:
 
         while time_count <= 4:
             self.labrador.pin32.enable_pwm(                                     # Motor de avanço
-                alias="engine_foward", freq=25, duty_cycle=0.1*time_count)
+                alias="engine_foward", freq=25, duty_cycle=0.25*time_count)
             
             self.labrador.pin36.enable_pwm(                                     # Motor de recuo
-                alias="engine_backward", freq=25, duty_cycle=0.1*time_count)
+                alias="engine_backward", freq=25, duty_cycle=0.25*time_count)
             
             self.labrador.pin28.enable_pwm(                                     # Motor de esticar a garra
-                alias="engine_stretch", freq=25, duty_cycle=0.1*time_count)
+                alias="engine_stretch", freq=25, duty_cycle=0.25*time_count)
             
             self.labrador.pin24.enable_pwm(                                     # Motor de retrair a garra
-                alias="engine_retract", freq=25, duty_cycle=0.1*time_count)
+                alias="engine_retract", freq=25, duty_cycle=0.25*time_count)
             
             '''self.labrador.pin31.enable_pwm(                                     # Motor de subir
                 alias="engine_uplift", freq=25, duty_cycle=0.1*time_count)
@@ -28,10 +28,10 @@ class Garra:
                 alias="engine_lower", freq=25, duty_cycle=0.1*time_count)'''
             
             self.labrador.pin11.enable_pwm(                                     # Motor de girar para a esquerda
-                alias="engine_turn_left", freq=25, duty_cycle=0.1*time_count)
+                alias="engine_turn_left", freq=25, duty_cycle=0.25*time_count)
             
             self.labrador.pin7.enable_pwm(                                     # Motor de girar para a direita
-                alias="engine_turn_right", freq=25, duty_cycle=0.1*time_count)
+                alias="engine_turn_right", freq=25, duty_cycle=0.25*time_count)
             
             time_count = time_count+1
 
